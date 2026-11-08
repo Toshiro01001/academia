@@ -55,7 +55,7 @@ A página carrega uma vez e faz tudo sozinha, sem falar com nenhum servidor. O p
 - CSP restritiva em todas as páginas (`default-src 'self'`, sem inline, sem conexões).
 - Acessibilidade: contraste AA, foco visível, teclado, `lang="pt-BR"`, avisos com `aria-live`, respeita `prefers-reduced-motion`.
 - `localStorage`: reservas, presenças e resumo do plano. A matrícula não é guardada.
-- A foto do hero (`img/hero.webp`, proporção 4:3) é provisória: uma composição de anilhas feita com Pillow. O prompt para a foto final está em `docs/identidade.md`.
+- A foto do hero (`img/hero.webp`, proporção 4:3) é uma foto gerada por IA no Canva (1440x1080), feita a partir do prompt de `docs/identidade.md`.
 
 ## Como rodar
 
