@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Anilha Academia | Musculação e treino funcional em Cuiabá</title>
+  <meta name="description" content="Site de demonstração de uma academia de bairro fictícia: monte seu plano, reserve vaga na aula, calcule sua semana de treino e simule a matrícula. Feito pela Mil e Uma Linhas!.">
+  <meta name="theme-color" content="#182024">
+  <link rel="canonical" href="https://toshiro01001.github.io/academia/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/big-shoulders-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+
+<a class="pular" href="#plano">Pular para o simulador de plano</a>
+
+<div class="cabecalho">
+  <p class="faixa-demo" role="note">
+    Demonstração da <a href="https://mileumalinhas.com.br" rel="noopener">Mil e Uma Linhas!</a> com dados fictícios. Nada é vendido nem enviado.
+  </p>
+  <header class="topo">
+    <div class="grade topo-conteudo">
+      <a class="marca" href="#inicio" aria-label="Anilha Academia, início da página">
+        <svg class="marca-anilha" viewBox="0 0 40 40" width="36" height="36" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="19" fill="currentColor"/><circle cx="20" cy="20" r="13" fill="none" stroke="var(--azulejo)" stroke-width="1.5"/><circle cx="20" cy="20" r="5" fill="var(--azulejo)"/></svg>
+        <span class="marca-nome">Anilha<span class="marca-sub"> academia</span></span>
+      </a>
+      <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="menu" id="menu" aria-label="Seções da página">
+        <a href="#plano">Planos</a>
+        <a href="#aulas">Aulas</a>
+        <a href="#semana">Minha semana</a>
+        <a href="#matricula">Matrícula</a>
+        <a href="#aluno">Área do aluno</a>
+        <a href="#como-funciona">Como isto funciona</a>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<main id="conteudo">
+
+<section class="abertura" id="inicio" aria-labelledby="titulo-abertura">
+  <div class="grade abertura-grade">
+    <div class="abertura-texto">
+      <h1 id="titulo-abertura"><span class="linha">Academia de bairro</span> <span class="linha">com vaga contada</span> <span class="linha">em cada aula.</span></h1>
+      <p class="abertura-frase">Aqui na Anilha você monta seu plano pelo preço que vê na tela, escolhe a aula no quadro de horários e reserva a vaga antes de sair de casa.</p>
+      <div class="acoes">
+        <a class="botao botao-principal" href="#plano">Montar meu plano</a>
+        <a class="botao botao-contorno" href="#aulas">Ver a grade de aulas</a>
+      </div>
+      <dl class="fatos">
+        <div><dt>Abrimos</dt><dd>Seg a sex, 5h30 às 22h. Sáb, 7h às 13h</dd></div>
+        <div><dt>Modalidades</dt><dd>5, com sala de musculação livre</dd></div>
+        <div><dt>Musculação 2 vezes por semana</dt><dd>R$ 79,20 por mês</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-moldura">
+      <img class="hero-foto" src="img/hero.webp" width="1600" height="1200" alt="Composição de anilhas de ferro de tamanhos diferentes sobre o piso azulado de uma academia, em tons de cinza, preto e turquesa." fetchpriority="high">
+    </figure>
+  </div>
+</section>
+
+<section class="secao claro" id="plano" aria-labelledby="titulo-plano">
+  <div class="grade">
+    <h2 class="titulo-secao" id="titulo-plano">Monte seu plano e veja o preço na hora</h2>
+    <p class="intro-secao">Marque o que quer treinar, quantas vezes por semana, por quanto tempo e quantas pessoas da casa vão junto. O valor muda enquanto você escolhe.</p>
+
+    <div class="plano-layout">
+      <form class="painel" id="form-plano" novalidate>
+        <fieldset>
+          <legend>O que você quer treinar</legend>
+          <p class="dica" id="dica-modalidades">Marque uma ou mais. Duas modalidades têm 5% de desconto, três ou mais têm 10%.</p>
+          <div class="opcoes" role="group" aria-describedby="dica-modalidades">
+            <label class="opcao"><input type="checkbox" name="mod" value="musculacao" data-preco="9900" checked><span class="opcao-nome">Sala de musculação</span><span class="opcao-preco">R$ 99</span></label>
+            <label class="opcao"><input type="checkbox" name="mod" value="funcional" data-preco="7900"><span class="opcao-nome">Treino funcional</span><span class="opcao-preco">R$ 79</span></label>
+            <label class="opcao"><input type="checkbox" name="mod" value="spinning" data-preco="7900"><span class="opcao-nome">Spinning</span><span class="opcao-preco">R$ 79</span></label>
+            <label class="opcao"><input type="checkbox" name="mod" value="ritmos" data-preco="6900"><span class="opcao-nome">Ritmos (dança)</span><span class="opcao-preco">R$ 69</span></label>
+            <label class="opcao"><input type="checkbox" name="mod" value="mobilidade" data-preco="4900"><span class="opcao-nome">Alongamento e mobilidade</span><span class="opcao-preco">R$ 49</span></label>
+          </div>
+          <p class="erro-campo" id="erro-mod" role="alert" hidden>Marque pelo menos uma modalidade.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Quantas vezes por semana</legend>
+          <div class="opcoes opcoes-linha">
+            <label class="opcao"><input type="radio" name="freq" value="80"><span class="opcao-nome">2 vezes</span><span class="opcao-preco">20% menos</span></label>
+            <label class="opcao"><input type="radio" name="freq" value="90" checked><span class="opcao-nome">3 vezes</span><span class="opcao-preco">10% menos</span></label>
+            <label class="opcao"><input type="radio" name="freq" value="100"><span class="opcao-nome">Livre</span><span class="opcao-preco">preço cheio</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Por quanto tempo</legend>
+          <div class="opcoes opcoes-linha">
+            <label class="opcao"><input type="radio" name="periodo" value="1" checked><span class="opcao-nome">Mensal</span><span class="opcao-preco">sem desconto</span></label>
+            <label class="opcao"><input type="radio" name="periodo" value="3"><span class="opcao-nome">3 meses</span><span class="opcao-preco">5% menos</span></label>
+            <label class="opcao"><input type="radio" name="periodo" value="6"><span class="opcao-nome">6 meses</span><span class="opcao-preco">10% menos</span></label>
+            <label class="opcao"><input type="radio" name="periodo" value="12"><span class="opcao-nome">12 meses</span><span class="opcao-preco">15% menos</span></label>
+          </div>
+        </fieldset>
+
+        <div class="campo campo-curto">
+          <label for="pessoas">Quantas pessoas da mesma casa</label>
+          <select id="pessoas" name="pessoas">
+            <option value="1">1 pessoa</option>
+            <option value="2">2 pessoas (a segunda paga 85%)</option>
+            <option value="3">3 pessoas (a terceira paga 80%)</option>
+            <option value="4">4 pessoas (a quarta paga 75%)</option>
+          </select>
+        </div>
+      </form>
+
+      <div class="placa-bloco" aria-live="polite" aria-atomic="true">
+        <div class="placa" id="placa-plano">
+          <p class="placa-rotulo" id="pl-titulo">Plano com 1 modalidade</p>
+          <p class="placa-valor"><span class="moeda">R$</span><span id="pl-mensal">0</span><span class="por-mes">por mês</span></p>
+        </div>
+        <dl class="resumo" id="resumo-plano">
+          <div><dt>Por pessoa</dt><dd id="pl-pessoa">-</dd></div>
+          <div><dt>Pessoas</dt><dd id="pl-pessoas">-</dd></div>
+          <div><dt>Taxa de matrícula</dt><dd id="pl-taxa">-</dd></div>
+          <div class="resumo-total"><dt id="pl-total-rotulo">Total no período</dt><dd id="pl-total">-</dd></div>
+          <div><dt>Você economiza</dt><dd id="pl-economia">-</dd></div>
+        </dl>
+        <p class="nota" id="pl-nota"></p>
+        <button class="botao botao-principal" type="button" id="usar-plano">Usar este plano na matrícula</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao escuro" id="aulas" aria-labelledby="titulo-aulas">
+  <div class="grade">
+    <h2 class="titulo-secao" id="titulo-aulas">Grade de aulas da semana</h2>
+    <p class="intro-secao">Escolha o dia, filtre por aula ou por horário e toque em Reservar. Cada círculo é uma vaga: cheio é ocupada, vazio é livre.</p>
+
+    <div class="filtros">
+      <div class="filtro" role="group" aria-label="Dia da semana" id="filtro-dia"></div>
+      <div class="filtros-linha">
+        <div class="campo">
+          <label for="filtro-mod">Aula</label>
+          <select id="filtro-mod">
+            <option value="todas">Todas as aulas</option>
+            <option value="musculacao">Musculação para iniciantes</option>
+            <option value="funcional">Treino funcional</option>
+            <option value="spinning">Spinning</option>
+            <option value="ritmos">Ritmos (dança)</option>
+            <option value="mobilidade">Alongamento e mobilidade</option>
+          </select>
+        </div>
+        <div class="filtro" role="group" aria-label="Período do dia" id="filtro-hora">
+          <button type="button" class="chip" data-hora="todas" aria-pressed="true">O dia todo</button>
+          <button type="button" class="chip" data-hora="manha" aria-pressed="false">Manhã</button>
+          <button type="button" class="chip" data-hora="tarde" aria-pressed="false">Tarde</button>
+          <button type="button" class="chip" data-hora="noite" aria-pressed="false">Noite</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="aviso-vivo" id="aviso-aulas" role="status" aria-live="polite"></p>
+    <ul class="lista-aulas" id="lista-aulas" aria-label="Aulas do dia escolhido"></ul>
+
+    <div class="minhas" id="minhas-reservas">
+      <h3>Minhas reservas</h3>
+      <ul class="lista-reservas" id="lista-reservas"></ul>
+      <p class="nota" id="sem-reservas">Você ainda não reservou nenhuma aula. As reservas ficam só neste navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="secao" id="semana" aria-labelledby="titulo-semana">
+  <div class="grade">
+    <h2 class="titulo-secao" id="titulo-semana">Quantos dias por semana cabem na sua vida</h2>
+    <p class="intro-secao">Diga quantos dias você tem, quanto tempo cada treino dura e há quanto tempo treina. A gente distribui os dias e deixa os de descanso no meio.</p>
+
+    <div class="semana-layout">
+      <form class="painel" id="form-semana" novalidate>
+        <div class="campo">
+          <label for="s-dias">Dias livres na semana</label>
+          <select id="s-dias" name="dias">
+            <option value="1">1 dia</option>
+            <option value="2">2 dias</option>
+            <option value="3" selected>3 dias</option>
+            <option value="4">4 dias</option>
+            <option value="5">5 dias</option>
+            <option value="6">6 dias</option>
+            <option value="7">7 dias</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="s-min">Tempo de cada treino</label>
+          <select id="s-min" name="min">
+            <option value="30">30 minutos</option>
+            <option value="45" selected>45 minutos</option>
+            <option value="60">60 minutos</option>
+            <option value="90">90 minutos</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="s-exp">Experiência com treino</label>
+          <select id="s-exp" name="exp">
+            <option value="0" selected>Estou começando</option>
+            <option value="1">Treino há alguns meses</option>
+            <option value="2">Treino há mais de 2 anos</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="s-obj">O que você quer priorizar</label>
+          <select id="s-obj" name="obj">
+            <option value="saude" selected>Saúde e disposição</option>
+            <option value="forca">Ganhar força</option>
+            <option value="folego">Ganhar fôlego</option>
+          </select>
+        </div>
+      </form>
+
+      <div class="semana-resultado" aria-live="polite" aria-atomic="true">
+        <ol class="dias-semana" id="dias-semana" aria-label="Sua semana, de segunda a domingo"></ol>
+        <p class="semana-total" id="semana-total"></p>
+        <p class="nota" id="semana-explica"></p>
+        <p class="nota" id="semana-ajuste" hidden></p>
+      </div>
+    </div>
+
+    <p class="aviso-saude" role="note"><strong>Isto não é prescrição de treino.</strong> É só uma ideia de como distribuir os dias. Antes de começar, converse com um profissional de Educação Física e, se tem alguma doença, dor, gestação ou usa remédio, com um médico. Nenhum resultado é garantido.</p>
+  </div>
+</section>
+
+<section class="secao claro" id="matricula" aria-labelledby="titulo-matricula">
+  <div class="grade">
+    <h2 class="titulo-secao" id="titulo-matricula">Faça sua matrícula</h2>
+    <p class="intro-secao">Preencha os dados e veja o resumo na tela. É uma simulação: nada é enviado, cobrado ou guardado. Use dados inventados.</p>
+
+    <div class="matricula-layout">
+      <form class="painel" id="form-matricula" novalidate>
+        <div class="campo">
+          <label for="m-nome">Nome completo</label>
+          <input id="m-nome" name="nome" type="text" autocomplete="off" maxlength="80" aria-describedby="e-nome">
+          <p class="erro-campo" id="e-nome" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="m-nasc">Data de nascimento</label>
+          <input id="m-nasc" name="nasc" type="date" aria-describedby="e-nasc">
+          <p class="erro-campo" id="e-nasc" hidden></p>
+        </div>
+        <div class="campo" id="campo-resp" hidden>
+          <label for="m-resp">Nome do responsável (menor de 18 anos)</label>
+          <input id="m-resp" name="resp" type="text" autocomplete="off" maxlength="80" aria-describedby="e-resp">
+          <p class="erro-campo" id="e-resp" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="m-zap">WhatsApp</label>
+          <input id="m-zap" name="zap" type="tel" inputmode="numeric" autocomplete="off" placeholder="(65) 99999-0000" maxlength="15" aria-describedby="e-zap">
+          <p class="erro-campo" id="e-zap" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="m-email">E-mail</label>
+          <input id="m-email" name="email" type="email" autocomplete="off" maxlength="80" placeholder="nome@exemplo.com" aria-describedby="e-email">
+          <p class="erro-campo" id="e-email" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="m-plano">Plano</label>
+          <select id="m-plano" name="plano">
+            <option value="">Escolha um plano</option>
+            <option value="basico">Plano básico</option>
+            <option value="combo">Plano combinado</option>
+          </select>
+          <p class="erro-campo" id="e-plano" hidden></p>
+        </div>
+        <fieldset class="campo">
+          <legend>Horário que prefere treinar</legend>
+          <div class="opcoes opcoes-linha">
+            <label class="opcao"><input type="radio" name="turno" value="de manhã" checked><span class="opcao-nome">Manhã</span></label>
+            <label class="opcao"><input type="radio" name="turno" value="à tarde"><span class="opcao-nome">Tarde</span></label>
+            <label class="opcao"><input type="radio" name="turno" value="à noite"><span class="opcao-nome">Noite</span></label>
+          </div>
+        </fieldset>
+        <div class="campo campo-check">
+          <label class="check"><input type="checkbox" id="m-saude" name="saude" aria-describedby="e-saude"><span>Li o aviso: antes de começar a treinar, devo conversar com um médico se tenho alguma condição de saúde.</span></label>
+          <p class="erro-campo" id="e-saude" hidden></p>
+        </div>
+        <div class="campo campo-check">
+          <label class="check"><input type="checkbox" id="m-termos" name="termos" aria-describedby="e-termos"><span>Entendi que isto é uma demonstração e que nada será enviado ou cobrado.</span></label>
+          <p class="erro-campo" id="e-termos" hidden></p>
+        </div>
+        <button class="botao botao-principal" type="submit">Concluir matrícula</button>
+        <p class="erro-campo" id="e-geral" role="alert" hidden></p>
+      </form>
+
+      <div class="matricula-resumo" id="matricula-resumo" aria-live="polite" tabindex="-1">
+        <div class="vazio" id="matricula-vazio">
+          <h3>O resumo aparece aqui</h3>
+          <p>Quando você concluir, mostramos o plano, o horário e o número do protocolo de demonstração.</p>
+        </div>
+        <div class="comprovante" id="comprovante" hidden>
+          <h3>Matrícula recebida (de mentira)</h3>
+          <dl class="resumo" id="comprovante-lista"></dl>
+          <p class="nota">Protocolo de demonstração. Não vale como contrato, recibo ou cobrança.</p>
+          <button class="botao botao-contorno botao-escuro-texto" type="button" id="nova-matricula">Fazer outra matrícula</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao escuro" id="aluno" aria-labelledby="titulo-aluno">
+  <div class="grade">
+    <h2 class="titulo-secao" id="titulo-aluno">Área do aluno</h2>
+    <p class="intro-secao">Entre com o aluno de demonstração para ver seu plano, suas reservas e marcar a presença do dia.</p>
+
+    <div class="aluno-layout">
+      <form class="painel painel-escuro" id="form-login" novalidate>
+        <p class="credenciais">Usuário <code>aluno.demo</code> e senha <code>treino-demo</code>. São de mentira e valem só aqui.</p>
+        <div class="campo">
+          <label for="l-user">Usuário</label>
+          <input id="l-user" type="text" autocomplete="off" autocapitalize="none" spellcheck="false">
+        </div>
+        <div class="campo">
+          <label for="l-senha">Senha</label>
+          <input id="l-senha" type="password" autocomplete="off">
+        </div>
+        <button class="botao botao-principal" type="submit">Entrar</button>
+        <p class="erro-campo" id="e-login" role="alert" hidden></p>
+      </form>
+
+      <div class="painel-aluno" id="painel-aluno" hidden>
+        <div class="aluno-topo">
+          <h3 id="aluno-ola">Olá, Aluno Demo</h3>
+          <button class="botao botao-contorno" type="button" id="sair">Sair</button>
+        </div>
+        <dl class="resumo" id="aluno-plano"></dl>
+        <h4>Presenças desta semana</h4>
+        <ol class="presencas" id="presencas" aria-label="Presenças de segunda a domingo"></ol>
+        <p class="aviso-vivo" id="aviso-presenca" role="status" aria-live="polite"></p>
+        <button class="botao botao-principal" type="button" id="checkin">Marcar presença de hoje</button>
+        <h4>Aulas reservadas</h4>
+        <ul class="lista-reservas" id="aluno-reservas"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao" id="como-funciona" aria-labelledby="titulo-como">
+  <div class="grade">
+    <h2 class="titulo-secao" id="titulo-como">Como isto funciona</h2>
+    <div class="como-colunas">
+      <div>
+        <h3>Para quem não entende de tecnologia</h3>
+        <p>Este é o site de uma academia inventada. Você pode montar um plano e ver quanto custa, reservar vaga numa aula, ver como distribuir os dias de treino e fingir uma matrícula. Tudo acontece dentro do seu celular ou computador. Nada é cobrado, nada é enviado, ninguém recebe seus dados.</p>
+      </div>
+      <div>
+        <h3>Por dentro, em linguagem comum</h3>
+        <p>A página carrega uma vez e faz as contas sozinha, sem falar com nenhum servidor. O preço do plano é uma soma com descontos. A grade de aulas é uma lista guardada no próprio site. As reservas e as presenças ficam gravadas só no seu navegador, e você apaga tudo limpando os dados do site.</p>
+      </div>
+      <div>
+        <h3>Isto vira o site da sua empresa</h3>
+        <p>Trocando nomes, preços e fotos, a mesma estrutura serve para a sua academia, estúdio ou clube. Quem faz é a <a href="https://mileumalinhas.com.br" rel="noopener">Mil e Uma Linhas!</a>.</p>
+      </div>
+    </div>
+    <details class="detalhes">
+      <summary>Detalhes técnicos</summary>
+      <ul>
+        <li>HTML, CSS e JavaScript puros, sem framework, sem CDN, sem analytics. Um arquivo de script (<code>js/app.js</code>) e um de estilo (<code>css/estilo.css</code>).</li>
+        <li>Política de segurança de conteúdo restritiva: <code>default-src 'self'</code>, sem script nem estilo inline, <code>connect-src 'none'</code> e <code>form-action 'none'</code>.</li>
+        <li>Fontes Big Shoulders Display e Hanken Grotesk, variáveis, em woff2 locais (licença OFL).</li>
+        <li>Preço calculado em centavos inteiros para não ter erro de arredondamento. Grade de aulas gerada de uma tabela de modalidades, dias, horas e capacidade; a lotação de cada turma vem de um cálculo fixo, não de sorteio.</li>
+        <li><code>localStorage</code> guarda apenas as reservas (<code>anilha.reservas</code>), as presenças (<code>anilha.presencas</code>) e o resumo do plano escolhido (<code>anilha.plano</code>). Os dados da matrícula não são guardados.</li>
+        <li>Respeita <code>prefers-reduced-motion</code>. Testado com Playwright em 1280x900, iPhone 13 e 320px.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <div class="grade rodape-grade">
+    <p class="rodape-marca">Anilha Academia</p>
+    <p>Rua das Palmeiras, 1200 (endereço fictício), Cuiabá, MT. Telefone fictício: (65) 3000-0000.</p>
+    <p>Demonstração criada pela <a href="https://mileumalinhas.com.br" rel="noopener">Mil e Uma Linhas!</a>. Empresa, pessoas, preços e horários são inventados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
