@@ -60,6 +60,7 @@
     </div>
     <figure class="hero-moldura">
       <img class="hero-foto" src="img/hero.webp" width="1440" height="1080" alt="Pilha de anilhas de ferro e uma anilha encostada, sobre piso de borracha, com um relógio de parede e giz em pó ao fundo." fetchpriority="high">
+      <figcaption class="hero-legenda">Seg a sex, 5h30 às 22h</figcaption>
     </figure>
   </div>
 </section>
@@ -68,6 +69,10 @@
   <div class="grade">
     <h2 class="titulo-secao" id="titulo-plano">Monte seu plano e veja o preço na hora</h2>
     <p class="intro-secao">Marque o que quer treinar, quantas vezes por semana, por quanto tempo e quantas pessoas da casa vão junto. O valor muda enquanto você escolhe.</p>
+
+    <figure class="plano-foto">
+      <img src="img/sala-musculacao.webp" width="1456" height="816" alt="Sala de musculação com fileira de anilhas de ferro em suporte, bancos pretos e piso de borracha azul-escuro, iluminada por luz natural lateral." loading="lazy" decoding="async">
+    </figure>
 
     <div class="plano-layout">
       <form class="painel" id="form-plano" novalidate>
@@ -139,7 +144,7 @@
     <p class="intro-secao">Escolha o dia, filtre por aula ou por horário e toque em Reservar. Cada círculo é uma vaga: cheio é ocupada, vazio é livre.</p>
 
     <div class="filtros">
-      <div class="filtro" role="group" aria-label="Dia da semana" id="filtro-dia"></div>
+      <div class="filtro filtro-dias" role="group" aria-label="Dia da semana" id="filtro-dia"></div>
       <div class="filtros-linha">
         <div class="campo">
           <label for="filtro-mod">Aula</label>
@@ -152,13 +157,24 @@
             <option value="mobilidade">Alongamento e mobilidade</option>
           </select>
         </div>
-        <div class="filtro" role="group" aria-label="Período do dia" id="filtro-hora">
+        <div class="filtro abas" role="group" aria-label="Período do dia" id="filtro-hora">
           <button type="button" class="chip" data-hora="todas" aria-pressed="true">O dia todo</button>
           <button type="button" class="chip" data-hora="manha" aria-pressed="false">Manhã</button>
           <button type="button" class="chip" data-hora="tarde" aria-pressed="false">Tarde</button>
           <button type="button" class="chip" data-hora="noite" aria-pressed="false">Noite</button>
         </div>
       </div>
+    </div>
+
+    <div class="midia-grade">
+      <figure class="midia-cartao midia-funcional">
+        <img src="img/aula-funcional.webp" width="1456" height="970" alt="Turma adulta de treino funcional vista de costas, em fila, segurando kettlebells sobre piso de borracha azul-escuro." loading="lazy" decoding="async">
+        <figcaption><strong>Treino funcional</strong><span>Turmas de 12 a 16 pessoas, 40 a 60 minutos</span></figcaption>
+      </figure>
+      <figure class="midia-cartao midia-spinning">
+        <img src="img/spinning-sala.webp" width="1456" height="1088" alt="Fileira de bicicletas de spinning pretas alinhadas em sala com luz baixa e uma faixa de luz turquesa no teto." loading="lazy" decoding="async">
+        <figcaption><strong>Spinning</strong><span>14 bicicletas por turma, 45 minutos</span></figcaption>
+      </figure>
     </div>
 
     <p class="aviso-vivo" id="aviso-aulas" role="status" aria-live="polite"></p>
@@ -178,6 +194,9 @@
     <p class="intro-secao">Diga quantos dias você tem, quanto tempo cada treino dura e há quanto tempo treina. A gente distribui os dias e deixa os de descanso no meio.</p>
 
     <div class="semana-layout">
+      <figure class="semana-foto">
+        <img src="img/instrutor-prancheta.webp" width="1088" height="1456" alt="Instrutor adulto visto de costas, com prancheta e camiseta turquesa, anotando um treino diante de um quadro de horários em branco." loading="lazy" decoding="async">
+      </figure>
       <form class="painel" id="form-semana" novalidate>
         <div class="campo">
           <label for="s-dias">Dias livres na semana</label>
@@ -226,7 +245,10 @@
       </div>
     </div>
 
-    <p class="aviso-saude" role="note"><strong>Isto não é prescrição de treino.</strong> É só uma ideia de como distribuir os dias. Antes de começar, converse com um profissional de Educação Física e, se tem alguma doença, dor, gestação ou usa remédio, com um médico. Nenhum resultado é garantido.</p>
+    <div class="aviso-saude" role="note">
+      <p><strong>Isto não é prescrição de treino.</strong> É só uma ideia de como distribuir os dias. Antes de começar, converse com um profissional de Educação Física e, se tem alguma doença, dor, gestação ou usa remédio, com um médico. Nenhum resultado é garantido.</p>
+      <a class="aviso-acao" href="#como-funciona">Ver como isto funciona</a>
+    </div>
   </div>
 </section>
 
@@ -293,8 +315,11 @@
 
       <div class="matricula-resumo" id="matricula-resumo" aria-live="polite" tabindex="-1">
         <div class="vazio" id="matricula-vazio">
-          <h3>O resumo aparece aqui</h3>
-          <p>Quando você concluir, mostramos o plano, o horário e o número do protocolo de demonstração.</p>
+          <img class="vazio-foto" src="img/armarios-vestiario.webp" width="1456" height="1088" alt="Corredor de vestiário com armários de metal cinza-azulados, placas numeradas em branco e um banco de madeira clara." loading="lazy" decoding="async">
+          <div class="vazio-texto">
+            <h3>O resumo aparece aqui</h3>
+            <p>Quando você concluir, mostramos o plano, o horário e o número do protocolo de demonstração.</p>
+          </div>
         </div>
         <div class="comprovante" id="comprovante" hidden>
           <h3>Matrícula recebida (de mentira)</h3>
@@ -313,8 +338,14 @@
     <p class="intro-secao">Entre com o aluno de demonstração para ver seu plano, suas reservas e marcar a presença do dia.</p>
 
     <div class="aluno-layout">
+      <figure class="aluno-foto">
+        <img src="img/catraca-entrada.webp" width="1024" height="1024" alt="Catraca de entrada de academia em aço escovado com leitor de cartão iluminado em turquesa, sobre piso de borracha azul-escuro." loading="lazy" decoding="async">
+      </figure>
       <form class="painel painel-escuro" id="form-login" novalidate>
-        <p class="credenciais">Usuário <code>aluno.demo</code> e senha <code>treino-demo</code>. São de mentira e valem só aqui.</p>
+        <div class="credenciais">
+          <p>Usuário <code>aluno.demo</code> e senha <code>treino-demo</code>. São de mentira e valem só aqui.</p>
+          <button class="aviso-acao" type="button" id="preencher-login">Preencher por mim</button>
+        </div>
         <div class="campo">
           <label for="l-user">Usuário</label>
           <input id="l-user" type="text" autocomplete="off" autocapitalize="none" spellcheck="false">
@@ -379,9 +410,30 @@
 
 <footer class="rodape">
   <div class="grade rodape-grade">
-    <p class="rodape-marca">Anilha Academia</p>
-    <p>Rua das Palmeiras, 1200 (endereço fictício), Cuiabá, MT. Telefone fictício: (65) 3000-0000.</p>
-    <p>Demonstração criada pela <a href="https://mileumalinhas.com.br" rel="noopener">Mil e Uma Linhas!</a>. Empresa, pessoas, preços e horários são inventados.</p>
+    <div class="rodape-coluna">
+      <p class="rodape-marca">Anilha Academia</p>
+      <p>Rua das Palmeiras, 1200 (endereço fictício), Cuiabá, MT.</p>
+      <p>Telefone fictício: (65) 3000-0000.</p>
+      <p>Seg a sex, 5h30 às 22h. Sáb, 7h às 13h.</p>
+    </div>
+    <nav class="rodape-coluna" aria-label="Atalhos das seções">
+      <p class="rodape-titulo">Atalhos</p>
+      <ul class="rodape-links">
+        <li><a href="#plano">Planos</a></li>
+        <li><a href="#aulas">Aulas</a></li>
+        <li><a href="#semana">Minha semana</a></li>
+        <li><a href="#matricula">Matrícula</a></li>
+        <li><a href="#aluno">Área do aluno</a></li>
+        <li><a href="#como-funciona">Como isto funciona</a></li>
+      </ul>
+    </nav>
+    <div class="rodape-coluna">
+      <p class="rodape-titulo">Demonstração</p>
+      <p>Site criado pela <a href="https://mileumalinhas.com.br" rel="noopener">Mil e Uma Linhas!</a>. Empresa, pessoas, preços e horários são inventados. Nada é vendido, cobrado nem enviado.</p>
+    </div>
+  </div>
+  <div class="grade rodape-legal">
+    <p>Anilha Academia é uma marca fictícia de demonstração. As fotos são ilustrativas, geradas por IA no Canva.</p>
   </div>
 </footer>
 

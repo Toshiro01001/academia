@@ -59,7 +59,108 @@
     });
     nav.addEventListener("click", function (e) { if (e.target.tagName === "A") fechar(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") fechar(); });
+
+    /* Cabeçalho ganha fundo translúcido depois de 20px de rolagem (sora: navigation pill). */
+    var cabecalho = document.querySelector(".cabecalho");
+    var marcado = false;
+    function aoRolar() {
+      var rolou = window.scrollY > 20;
+      if (rolou !== marcado) { marcado = rolou; cabecalho.classList.toggle("rolou", rolou); }
+    }
+    window.addEventListener("scroll", aoRolar, { passive: true });
+    aoRolar();
   })();
+
+  var MOVIMENTO_OK = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  /* ---------- Revelação ao rolar (sora: soft fade-in) ---------- */
+  (function revelar() {
+    if (!MOVIMENTO_OK || !("IntersectionObserver" in window)) return;
+    var alvos = document.querySelectorAll(".secao > .grade");
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("visto"); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" }); // dispara quando o bloco entra 12% na tela
+    for (var i = 0; i < alvos.length; i++) {
+      var r = alvos[i].getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) continue; // já está na tela: não esconde
+      alvos[i].classList.add("revela");
+      obs.observe(alvos[i]);
+    }
+  })();
+
+  /* ---------- Campo de luz nas faixas escuras (sora: versão em canvas 2D do campo cósmico) ---------- */
+  (function campoDeLuz() {
+    if (!MOVIMENTO_OK) return;
+    var faixas = document.querySelectorAll(".secao.escuro");
+    var telas = [];
+    for (var i = 0; i < faixas.length; i++) {
+      var c = document.createElement("canvas");
+      c.className = "campo-luz";
+      c.setAttribute("aria-hidden", "true");
+      faixas[i].insertBefore(c, faixas[i].firstChild);
+      telas.push({ canvas: c, faixa: faixas[i] });
+    }
+    function desenhar() {
+      telas.forEach(function (t) {
+        var w = Math.max(1, Math.round(t.faixa.clientWidth / 2));
+        var h = Math.max(1, Math.round(t.faixa.clientHeight / 2));
+        if (h > 2000) h = 2000;
+        t.canvas.width = w;
+        t.canvas.height = h;
+        var ctx = t.canvas.getContext("2d");
+        if (!ctx) return;
+        ctx.clearRect(0, 0, w, h);
+        var raio = Math.max(w, h) * 0.55;
+        var g = ctx.createRadialGradient(w * 0.92, 0, 0, w * 0.92, 0, raio);
+        g.addColorStop(0, "rgba(127, 214, 232, 0.06)");
+        g.addColorStop(0.5, "rgba(127, 214, 232, 0.025)");
+        g.addColorStop(1, "rgba(127, 214, 232, 0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+        var grao = ctx.createImageData(w, Math.min(h, 240));
+        var d = grao.data;
+        for (var p = 0; p < d.length; p += 4) {
+          var v = Math.random() < 0.5 ? 255 : 0;
+          d[p] = v; d[p + 1] = v; d[p + 2] = v; d[p + 3] = Math.random() < 0.25 ? 5 : 0; // grão a cerca de 2% a 3%
+        }
+        for (var y = 0; y < h; y += grao.height) ctx.putImageData(grao, 0, y);
+      });
+    }
+    var espera;
+    window.addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(desenhar, 200); });
+    desenhar();
+    window.setTimeout(desenhar, 600); // depois que as listas montam e a altura muda
+  })();
+
+  /* Ícones em SVG criados pelo código (sem biblioteca). */
+  var SVG_NS = "http://www.w3.org/2000/svg";
+  var ICONES = {
+    halter: "M4 9v6M8 7v10M16 7v10M20 9v6M8 12h8M2 12h2M20 12h2",
+    corrida: "M13 4a1 1 0 1 0 2 0 1 1 0 0 0-2 0M6 20l3-7 3 2v5M9 13l2-4 4 1 3 3M11 9l-4 2-2 3",
+    passos: "M8 3c2 0 3 2 3 5s-1 4-3 4-3-2-3-5 1-4 3-4zM7 14h3l1 3-1 3H7l-1-3zM16 8c2 0 3 2 3 5s-1 4-3 4-3-2-3-5 1-4 3-4zM15 19h3l1 2h-5z",
+    bike: "M5 17a3 3 0 1 0 6 0 3 3 0 0 0-6 0M13 17a3 3 0 1 0 6 0 3 3 0 0 0-6 0M8 17l3-7h5l2 7M11 10l-2-4h3M15 7h2",
+    marca: "M5 12l4 4L19 6"
+  };
+  function icone(nome) {
+    var svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    var path = document.createElementNS(SVG_NS, "path");
+    path.setAttribute("d", ICONES[nome] || ICONES.halter);
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "currentColor");
+    path.setAttribute("stroke-width", "1.6");
+    path.setAttribute("stroke-linecap", "round");
+    path.setAttribute("stroke-linejoin", "round");
+    svg.appendChild(path);
+    return svg;
+  }
+  function pilula(tipo, texto) {
+    return el("span", "pilula pilula-" + tipo, texto);
+  }
 
   /* ---------- 1. Simulador de plano ---------- */
   var PESSOAS_PCT = [100, 85, 80, 75];
@@ -362,16 +463,26 @@
   function montarDias() {
     var box = $("filtro-dia");
     box.textContent = "";
-    for (var d = 1; d <= 6; d++) {
-      (function (d) {
-        var b = el("button", "chip", DIAS[d]);
-        b.type = "button";
-        b.setAttribute("data-dia", String(d));
+    // faixa de sete dias (oemsz26: week strip); domingo aparece, mas fechado
+    var ordem = [1, 2, 3, 4, 5, 6, 0];
+    ordem.forEach(function (d) {
+      var b = el("button", "dia-pilula");
+      b.type = "button";
+      b.appendChild(el("span", null, DIAS_CURTOS[d]));
+      b.setAttribute("data-dia", String(d));
+      if (d === 0) {
+        b.disabled = true;
+        b.appendChild(el("small", null, "fechado"));
+        b.setAttribute("aria-label", "Domingo, academia fechada");
+      } else {
+        var n = AULAS.filter(function (a) { return a.dia === d; }).length;
+        b.appendChild(el("small", null, n + (n === 1 ? " aula" : " aulas")));
+        b.setAttribute("aria-label", DIAS[d] + ", " + n + " aulas");
         b.setAttribute("aria-pressed", filtro.dia === d ? "true" : "false");
         b.addEventListener("click", function () { filtro.dia = d; avisarAulas(""); montarDias(); montarAulas(); });
-        box.appendChild(b);
-      })(d);
-    }
+      }
+      box.appendChild(b);
+    });
   }
 
   function vagasTexto(a, minha) {
@@ -398,12 +509,26 @@
       li.setAttribute("data-aula", a.id);
       li.appendChild(el("span", "aula-hora", a.hora));
       var corpo = el("div");
-      corpo.appendChild(el("h3", "aula-nome", NOMES_AULA[a.mod]));
+      var cabeca = el("div", "aula-cabeca");
+      cabeca.appendChild(el("h3", "aula-nome", NOMES_AULA[a.mod]));
+      // pílula de estado (oemsz26: status pill)
+      cabeca.appendChild(minha ? pilula("minha", "reservada") : (cheia ? pilula("cheia", "lotada") : pilula("aberta", "vagas abertas")));
+      corpo.appendChild(cabeca);
       corpo.appendChild(el("p", "aula-info", "com " + a.instrutor + ", " + a.min + " minutos, até " + fim(a)));
       li.appendChild(corpo);
       var vagas = el("div", "vagas");
       vagas.setAttribute("role", "img");
       vagas.setAttribute("aria-label", vagasTexto(a, minha));
+      // barra de lotação com número ao lado (oemsz26: progress with value)
+      var ocupadasAgora = a.ocupadas + (minha ? 1 : 0);
+      var lot = el("div", "lotacao");
+      var trilho = el("span", "lotacao-trilho");
+      var cheio = el("span", "lotacao-cheio");
+      cheio.style.width = Math.round(100 * ocupadasAgora / a.vagas) + "%";
+      trilho.appendChild(cheio);
+      lot.appendChild(trilho);
+      lot.appendChild(el("span", "lotacao-valor", ocupadasAgora + " de " + a.vagas));
+      vagas.appendChild(lot);
       for (var i = 0; i < a.vagas; i++) {
         var cls = "vaga";
         if (i < a.ocupadas) cls += " cheia";
@@ -455,7 +580,10 @@
     ul.textContent = "";
     reservas.map(aulaPorId).sort(function (a, b) { return a.dia - b.dia || a.ini - b.ini; }).forEach(function (a) {
       var li = el("li", "reserva");
-      li.appendChild(el("span", "reserva-info", DIAS[a.dia] + " às " + a.hora + ", " + NOMES_AULA[a.mod]));
+      var info = el("span", "reserva-info");
+      info.appendChild(el("span", null, DIAS[a.dia] + " às " + a.hora + ", " + NOMES_AULA[a.mod]));
+      info.appendChild(pilula("minha", "reservada"));
+      li.appendChild(info);
       if (comCancelar) {
         var b = el("button", "botao botao-contorno", "Cancelar");
         b.type = "button";
@@ -538,13 +666,23 @@
     var ol = $("dias-semana");
     ol.textContent = "";
     var nomes = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+    // linhas com tile de ícone (oemsz26: goal row / workout row)
     for (d = 0; d < 7; d++) {
       var item = plano[d] || { tipo: "descanso", nome: "Descanso", det: "Deixe o corpo se recuperar" };
-      var li = el("li", "dia " + (item.tipo === "treino" ? "treino" : (item.tipo === "leve" ? "leve" : "")));
-      li.appendChild(el("span", "dia-nome", nomes[d]));
-      var t = el("span", "dia-tarefa", item.nome);
-      t.appendChild(el("span", "dia-detalhe", item.det));
-      li.appendChild(t);
+      var li = el("li", "dia " + (item.tipo === "treino" ? "treino" : (item.tipo === "leve" ? "leve" : "descanso")));
+      var tile = el("span", "tile");
+      tile.setAttribute("aria-hidden", "true");
+      if (item.tipo === "treino") tile.appendChild(icone(/Funcional|spinning/i.test(item.nome) ? "bike" : "halter"));
+      else if (item.tipo === "leve") tile.appendChild(icone("passos"));
+      li.appendChild(tile);
+      var corpo = el("div", "dia-corpo");
+      var texto = el("div", "dia-texto");
+      texto.appendChild(el("span", "dia-nome", nomes[d]));
+      texto.appendChild(el("span", "dia-tarefa", item.nome));
+      texto.appendChild(el("span", "dia-detalhe", item.det));
+      corpo.appendChild(texto);
+      corpo.appendChild(pilula(item.tipo, item.tipo === "treino" ? "treino" : (item.tipo === "leve" ? "leve" : "descanso")));
+      li.appendChild(corpo);
       ol.appendChild(li);
     }
 
@@ -591,10 +729,19 @@
       var dia = new Date(seg.getFullYear(), seg.getMonth(), seg.getDate() + i);
       var k = chaveData(dia);
       var feita = presencas.indexOf(k) !== -1;
+      // linha de presença com tile (oemsz26: goal row)
       var li = el("li", "presenca" + (feita ? " feita" : "") + (k === hoje ? " hoje" : ""));
-      li.appendChild(el("i"));
-      li.lastChild.setAttribute("aria-hidden", "true");
-      li.appendChild(el("span", null, DIAS_CURTOS[dia.getDay()]));
+      var tile = el("span", "tile");
+      tile.setAttribute("aria-hidden", "true");
+      if (feita) tile.appendChild(icone("marca")); else tile.appendChild(el("i"));
+      li.appendChild(tile);
+      var corpo = el("div", "presenca-corpo");
+      var texto = el("div");
+      texto.appendChild(el("span", "presenca-nome", DIAS[dia.getDay()] + (k === hoje ? " (hoje)" : "")));
+      texto.appendChild(el("span", "presenca-detalhe", ("0" + dia.getDate()).slice(-2) + "/" + ("0" + (dia.getMonth() + 1)).slice(-2) + (feita ? ", presença marcada" : ", sem presença")));
+      corpo.appendChild(texto);
+      corpo.appendChild(feita ? pilula("feita", "presente") : pilula("vazia", k === hoje ? "hoje" : "sem registro"));
+      li.appendChild(corpo);
       li.setAttribute("aria-label", DIAS[dia.getDay()] + (feita ? ": presença marcada" : ": sem presença"));
       ol.appendChild(li);
     }
@@ -622,6 +769,13 @@
       erro.textContent = "Usuário ou senha incorretos. Use os dados que estão na tela.";
       erro.hidden = false;
     }
+  });
+
+  $("preencher-login").addEventListener("click", function () {
+    $("l-user").value = USUARIO;
+    $("l-senha").value = SENHA;
+    $("e-login").hidden = true;
+    $("form-login").querySelector('button[type="submit"]').focus();
   });
 
   $("sair").addEventListener("click", function () {

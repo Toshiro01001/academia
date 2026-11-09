@@ -43,6 +43,23 @@ Detalhes em [`docs/identidade.md`](docs/identidade.md).
 - **Paleta**: Azulejo `#E3EAEC` (parede de vestiário), Borracha `#182024` (piso), Anilha `#4F6168`, Rejunte `#BCC9CD` e o único destaque, Turquesa `#08687C` (`#7FD6E8` nas faixas escuras). Fugi do preto com neon e do vermelho de academia de propósito.
 - **Fontes**: Big Shoulders Display (títulos, números e horários, letra alta de letreiro) e Hanken Grotesk (texto). As duas são locais, licença OFL.
 - **Por quê**: academia de bairro é azulejo, borracha e número gravado, não outdoor de suplemento. O site fica sóbrio e o preço e a vaga ficam em destaque.
+- **Design systems**: na leva final apliquei padrões de dois sistemas do catálogo, o oemsz26 (claro, de fitness: cartões com anel e sombra em seis passos, faixa de dias, barras de lotação, linhas com tile de ícone, botão com seta) nas seções claras e o sora (escuro: pílula de navegação em vidro, cartões de vidro a 4%, abas preenchidas, callouts, rodapé em colunas, revelação ao rolar e um campo de luz em canvas) nas faixas escuras. A lista completa está em `docs/identidade.md`.
+
+## Fotos
+
+Todas as fotos do site são **ilustrativas e geradas por IA no Canva**, a partir dos prompts em `docs/identidade.md`. Nenhuma mostra pessoa real, lugar real ou marca.
+
+| Arquivo | Proporção | Onde aparece |
+| --- | --- | --- |
+| `img/hero.webp` | 4:3 | Abertura |
+| `img/sala-musculacao.webp` | 16:9 | Planos, acima do simulador |
+| `img/aula-funcional.webp` | 3:2 | Aulas, cartão "Treino funcional" |
+| `img/spinning-sala.webp` | 4:3 | Aulas, cartão "Spinning" |
+| `img/instrutor-prancheta.webp` | 3:4 | Minha semana, ao lado do formulário |
+| `img/armarios-vestiario.webp` | 4:3 | Matrícula, fundo do resumo vazio |
+| `img/catraca-entrada.webp` | 1:1 | Área do aluno, ao lado da entrada |
+
+Os arquivos em `img/` são as fotos finais, exportadas do Canva e convertidas para webp no tamanho e na proporção certos.
 
 ## Como funciona por dentro
 
@@ -51,11 +68,11 @@ A página carrega uma vez e faz tudo sozinha, sem falar com nenhum servidor. O p
 ## Detalhes técnicos
 
 - HTML, CSS e JavaScript puros. Sem framework, sem CDN, sem analytics.
-- Arquivos: `index.html`, `css/estilo.css`, `js/app.js`, `img/hero.webp`, `fonts/`, `404.html`, `robots.txt`, `sitemap.xml`, `docs/`, `tests/site.cjs`.
+- Arquivos: `index.html`, `css/estilo.css`, `js/app.js`, `img/` (fotos), `fonts/`, `404.html`, `robots.txt`, `sitemap.xml`, `docs/`, `tests/site.cjs`.
 - CSP restritiva em todas as páginas (`default-src 'self'`, sem inline, sem conexões).
 - Acessibilidade: contraste AA, foco visível, teclado, `lang="pt-BR"`, avisos com `aria-live`, respeita `prefers-reduced-motion`.
 - `localStorage`: reservas, presenças e resumo do plano. A matrícula não é guardada.
-- A foto do hero (`img/hero.webp`, proporção 4:3) é uma foto gerada por IA no Canva (1440x1080), feita a partir do prompt de `docs/identidade.md`.
+- A foto do hero (`img/hero.webp`, proporção 4:3) é gerada por IA no Canva (1440x1080); as outras fotos estão na seção "Fotos" acima.
 
 ## Como rodar
 
